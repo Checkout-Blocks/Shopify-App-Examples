@@ -2,19 +2,6 @@
 
 import { verifyAuth } from "@api-lib/verify-jwt-auth";
 
-const GET_ABANDONED_CHECKOUT = `
-    query($id: ID!) {
-        node(id: $id) {
-            id
-            ...on AbandonedCheckout {
-                id
-                abandonedCheckoutUrl
-
-            }
-        }
-    }
-`;
-
 export default async function handler(req, res) {
     const auth = await verifyAuth(req, res);
 
@@ -29,16 +16,6 @@ export default async function handler(req, res) {
         if (!id) {
             throw `Missing required id query param`;
         }
-
-        // Retrieve abandoned checkout with id
-        // const checkout = await client.graphql.query({
-        //     data: {
-        //         query: GET_ABANDONED_CHECKOUT,
-        //         variables: {
-        //             id: `gid://shopify/AbandonedCheckout/${id}`
-        //         },
-        //     },
-        // });
 
         // Hat tip to Marc Baumbach at Seguno for this apprach
         const checkouts = await client.rest.get({
