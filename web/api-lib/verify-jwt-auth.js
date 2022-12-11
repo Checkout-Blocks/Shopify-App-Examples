@@ -24,7 +24,7 @@ export const verifyAuth = async (request, response) => {
         const offlineSessionId = await shopify.session.getOfflineId(
             onlineSession.shop
         );
-        
+
         if (!offlineSessionId) {
             throw `No offlineSessionId`;
         }
@@ -32,7 +32,7 @@ export const verifyAuth = async (request, response) => {
         const offlineSession = await sessionStorage.loadCallback(
             offlineSessionId
         );
-        
+
         if (!offlineSession) {
             throw `No offline session found`;
         }
