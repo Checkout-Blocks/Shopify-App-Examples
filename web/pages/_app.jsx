@@ -1,16 +1,28 @@
+import { useRouter } from "next/router";
 import { AppProvider as PolarisProvider } from "@shopify/polaris";
 import polarisTranslations from "@shopify/polaris/locales/en.json";
 import "@shopify/polaris/build/esm/styles.css";
 
 import { Link } from "@components/core";
+import { AppBridgeProvider } from "@components/provider";
+
+const AppProviderWrapper = ({ children }) => {
+    const router = useRouter();
+
+    if (router.pathname === "/login") {
+        // Don't use appbridge on login as it loads external to Shopify
+        return children;
+    }
+
+    return <AppBridgeProvider>{children}</AppBridgeProvider>;
+};
 
 function MyApp({ Component, pageProps }) {
     return (
-        <PolarisProvider
-            i18n={polarisTranslations}
-            linkComponent={Link}
-        >
-            <Component {...pageProps} />
+        <PolarisProvider i18n={polarisTranslations} linkComponent={Link}>
+            <AppProviderWrapper>
+                <Component {...pageProps} />
+            </AppProviderWrapper>
         </PolarisProvider>
     );
 }
