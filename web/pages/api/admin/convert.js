@@ -1,5 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { CREATE_DRAFT_ORDER } from "@api-lib/graphql-queries";
+import { constructDraftOrder } from "@api-lib/helper";
 import { verifyAuth } from "@api-lib/verify-jwt-auth";
 
 export default async function handler(req, res) {
@@ -27,13 +29,27 @@ export default async function handler(req, res) {
         });
         const checkout = checkouts?.body?.checkouts[0];
 
-        // Create payload for draft order based on abandoned checkout id
-        const draftOrderPayload = {};
+        // Create draft order payload
+        const draftOrderPayload = constructDraftOrder(checkout);
 
-        // 3. Create new draft order
+        // Create new draft order
+        const draftOrderResponse = await client.graphql.query({
+            data: {
+                query: CREATE_DRAFT_ORDER,
+                variables: {
+                    input: draftOrderPayload,
+                },
+            },
+        });
+        console.log(
+            "draftOrderResponse",
+            draftOrderResponse?.body?.data?.draftOrderCreate?.draftOrder?.legacyResourceId
+        );
 
         // Return id of draft order
-        const draftOrderId = null; // TODO:
+        const draftOrderId =
+            draftOrderResponse?.body?.data?.draftOrderCreate?.draftOrder?.legacyResourceId ||
+            null;
 
         res.status(200).json({ success: true, id: draftOrderId });
     } catch (error) {
