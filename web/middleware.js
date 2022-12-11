@@ -19,6 +19,7 @@ export async function middleware(request) {
     const response = NextResponse.next();
     const urlParams = new URLSearchParams(request.url.split("?")[1]);
     const query = Object.fromEntries(urlParams);
+    const shop = query.shop;
 
     /**
      * Redirect root to login page when not embedded
