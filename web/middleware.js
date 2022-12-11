@@ -42,6 +42,19 @@ export async function middleware(request) {
     }
 
     /**
+     * iFrame Security headers
+     * See: https://shopify.dev/apps/store/security/iframe-protection
+     */
+    if (query.embedded && shop) {
+        response.headers.append(
+            "Content-Security-Policy",
+            `frame-ancestors https://${encodeURIComponent(
+                shop
+            )} https://admin.shopify.com;`
+        );
+    }
+
+    /**
      * Verify-Request
      *
      * Make sure all admin api requests include a Bearer Token
