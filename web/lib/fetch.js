@@ -10,12 +10,15 @@ export function userLoggedInFetch() {
         const response = await fetchFunction(uri, options);
 
         if (response.status === 401) {
-            const authUrl = `${
+            const reauthUrl = response.headers["X-Shopify-API-Request-Failure-Reauthorize-Url"] || null;
+
+            const authUrl = reauthUrl || `${
                 window?.location?.origin
             }/api/auth?shop=${app.hostOrigin?.replace("https://", "")}`;
 
             const redirect = Redirect.create(app);
             redirect.dispatch(Redirect.Action.REMOTE, authUrl);
+            
             return null;
         }
 

@@ -41,5 +41,52 @@ export async function middleware(request) {
         }
     }
 
+    /**
+     * Verify-Request
+     *
+     * Make sure all admin api requests include a Bearer Token
+     * */
+    if (request.url.includes("/api/admin")) {
+        const authorizationHeader = request.headers.get("authorization");
+
+        // Make sure API request has required 'authorization' header (Bearer JWT)
+        if (!authorizationHeader) {
+            // No shop so respond with 401 and /login
+            if (!shop) {
+                return new NextResponse(
+                    JSON.stringify({
+                        success: false,
+                        message: "authentication failed",
+                    }),
+                    {
+                        status: 401,
+                        headers: {
+                            "content-type": "application/json",
+                            "X-Shopify-API-Request-Failure-Reauthorize": "1",
+                            "X-Shopify-API-Request-Failure-Reauthorize-Url": `/login`,
+                        },
+                    }
+                );
+            }
+
+            // Respond with 401 and header
+            return new NextResponse(
+                JSON.stringify({
+                    success: false,
+                    message: "authentication failed",
+                }),
+                {
+                    status: 401,
+                    headers: {
+                        "content-type": "application/json",
+                        "X-Shopify-API-Request-Failure-Reauthorize": "1",
+                        "X-Shopify-API-Request-Failure-Reauthorize-Url": `/api/auth?shop=${shop}`,
+                    },
+                }
+            );
+        }
+        return response;
+    }
+
     return response;
 }
