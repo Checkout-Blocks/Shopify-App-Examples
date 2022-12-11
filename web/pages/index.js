@@ -22,7 +22,7 @@ export default function Home() {
 
     const convertToDraft = async () => {
         try {
-            const response = await fetchFunction(`/api/admin/convert`).then((res) => {
+            const response = await fetchFunction(`/api/admin/convert?id=${router.query?.id}`).then((res) => {
                 if (!res) {
                     return null;
                 }
