@@ -1,13 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Card, Layout, Page, Spinner } from "@shopify/polaris";
 import Head from "next/head";
 
+import { userLoggedInFetch } from "@lib/fetch";
 
 export default function Home() {
     const router = useRouter();
+    const fetchFunction = userLoggedInFetch();
 
     const [loading, setLoading] = useState(router.query?.id ? true : false);
+
+    useEffect(() => {
+        if (router.query?.id) {
+            convertToDraft();
+        }
+    }, []);
+
+    const convertToDraft = async () => {
+        try {
+            const response = await fetchFunction(`/api/admin/convert`).then((res) => {
+                if (!res) {
+                    return null;
+                }
+                return res?.json()
+            });
+
+            console.log({ response })
+            
+        } catch (error) {
+            console.warn(error);
+        }
+    }
 
     if (router.query?.id) {
         if (loading) {
