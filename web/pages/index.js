@@ -1,7 +1,48 @@
-import { Card, Layout, Link, Page } from "@shopify/polaris";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { Card, Layout, Page, Spinner } from "@shopify/polaris";
 import Head from "next/head";
 
+
 export default function Home() {
+    const router = useRouter();
+
+    const [loading, setLoading] = useState(router.query?.id ? true : false);
+
+    if (router.query?.id) {
+        if (loading) {
+            return (
+                <Page>
+                    <Layout>
+                        <Layout.Section>
+                            <Card
+                                sectioned
+                                title="Creating draft order..."
+                            >
+                                <Spinner />
+                            </Card>
+                        </Layout.Section>
+                    </Layout>
+                </Page>
+            )
+        }
+
+        return (
+            <Page>
+                <Layout>
+                    <Layout.Section>
+                        <Card
+                            sectioned
+                            title="Redirecting to draft order..."
+                        >
+                            <Spinner />
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </Page>
+        )
+    }
+
     return (
         <Page>
             <Head>
@@ -15,7 +56,14 @@ export default function Home() {
 
             <Layout>
                 <Layout.Section>
-                    <Card sectioned title="Welcome" actions={[{ content: "Settings", url: "/settings"}]}>Outcast Index.js</Card>
+                    <Card
+                        sectioned
+                        title="First, select an abandoned checkout"
+                        //actions={[{ content: "Settings", url: "/settings"}]}
+                    >
+                        Navigate to Orders &rarr; Abandoned checkouts. Select an abandoned checkout and then click: More
+                        actions &rarr; Convert to draft order.
+                    </Card>
                 </Layout.Section>
             </Layout>
         </Page>
