@@ -14,7 +14,7 @@ export default async function handler(request, response) {
         const shop = session.shop;
 
         // Store online auth in Redis
-        await sessionStorage.storeCallback(session);
+        await sessionStorage.storeCallback(session.id, session);
 
     } catch (error) {
         console.warn(error);
