@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Card, Layout, Page, Spinner } from "@shopify/polaris";
+import { Button, Card, Layout, Page, Spinner } from "@shopify/polaris";
 import Head from "next/head";
 
 import { userLoggedInFetch } from "@lib/fetch";
+import { useAppBridge } from "@shopify/app-bridge-react";
+import { Redirect } from "@shopify/app-bridge/actions";
 
 export default function Home() {
     const router = useRouter();
+    const app = useAppBridge();
     const fetchFunction = userLoggedInFetch();
 
     const [loading, setLoading] = useState(router.query?.id ? true : false);
@@ -31,6 +34,11 @@ export default function Home() {
         } catch (error) {
             console.warn(error);
         }
+    }
+
+    const navigateToAbandonedCheckouts = () => {
+        const redirect = Redirect.create(app);
+        redirect.dispatch(Redirect.Action.ADMIN_PATH, "/checkouts");
     }
 
     if (router.query?.id) {
@@ -85,7 +93,7 @@ export default function Home() {
                         title="First, select an abandoned checkout"
                         //actions={[{ content: "Settings", url: "/settings"}]}
                     >
-                        Navigate to Orders &rarr; Abandoned checkouts. Select an abandoned checkout and then click: More
+                        Navigate to <Button plain onClick={navigateToAbandonedCheckouts}>Orders &rarr; Abandoned checkouts</Button>. Select an abandoned checkout and then click: More
                         actions &rarr; Convert to draft order.
                     </Card>
                 </Layout.Section>
