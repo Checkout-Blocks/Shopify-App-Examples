@@ -1,5 +1,3 @@
 import { AppBridgeProvider } from "./AppBridge.jsx";
 
-export {
-    AppBridgeProvider,
-}
+export { AppBridgeProvider };

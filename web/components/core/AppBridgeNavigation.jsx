@@ -5,9 +5,9 @@ import { NavigationMenu, AppLink } from "@shopify/app-bridge/actions";
 export function AppBridgeNavigation() {
     const app = useAppBridge();
     const router = useRouter();
-    
+
     const settingsLink = AppLink.create(app, {
-        label: 'Settings',
+        label: "Settings",
         destination: `/settings`,
     });
 
@@ -17,7 +17,7 @@ export function AppBridgeNavigation() {
         }
 
         return null;
-    }
+    };
 
     NavigationMenu.create(app, {
         items: [settingsLink],
