@@ -3,7 +3,7 @@ import { AppProvider as PolarisProvider } from "@shopify/polaris";
 import polarisTranslations from "@shopify/polaris/locales/en.json";
 import "@shopify/polaris/build/esm/styles.css";
 
-import { Link } from "@components/core";
+import { AppBridgeNavigation, Link } from "@components/core";
 import { AppBridgeProvider } from "@components/provider";
 
 const AppProviderWrapper = ({ children }) => {
@@ -14,7 +14,12 @@ const AppProviderWrapper = ({ children }) => {
         return children;
     }
 
-    return <AppBridgeProvider>{children}</AppBridgeProvider>;
+    return (
+        <AppBridgeProvider>
+            <AppBridgeNavigation />
+            {children}
+        </AppBridgeProvider>
+    );
 };
 
 function MyApp({ Component, pageProps }) {

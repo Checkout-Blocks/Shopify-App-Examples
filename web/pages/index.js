@@ -1,4 +1,4 @@
-import { Card, Layout, Page } from "@shopify/polaris";
+import { Card, Layout, Link, Page } from "@shopify/polaris";
 import Head from "next/head";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
 
             <Layout>
                 <Layout.Section>
-                    <Card sectioned title="Welcome">Outcast Index.js</Card>
+                    <Card sectioned title="Welcome" actions={[{ content: "Settings", url: "/settings"}]}>Outcast Index.js</Card>
                 </Layout.Section>
             </Layout>
         </Page>
