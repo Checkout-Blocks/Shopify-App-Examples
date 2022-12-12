@@ -41,11 +41,7 @@ export default async function handler(req, res) {
                 },
             },
         });
-        console.log(
-            "draftOrderResponse",
-            draftOrderResponse?.body?.data?.draftOrderCreate?.draftOrder?.legacyResourceId
-        );
-
+        
         // Return id of draft order
         const draftOrderId =
             draftOrderResponse?.body?.data?.draftOrderCreate?.draftOrder?.legacyResourceId ||
