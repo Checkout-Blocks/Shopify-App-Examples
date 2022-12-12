@@ -41,11 +41,11 @@ export default async function handler(req, res) {
                 },
             },
         });
-        
+
         // Return id of draft order
         const draftOrderId =
-            draftOrderResponse?.body?.data?.draftOrderCreate?.draftOrder?.legacyResourceId ||
-            null;
+            draftOrderResponse?.body?.data?.draftOrderCreate?.draftOrder
+                ?.legacyResourceId || null;
 
         res.status(200).json({ success: true, id: draftOrderId });
     } catch (error) {
