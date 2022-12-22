@@ -1,0 +1,21 @@
+authtoken: [ADD_TOKEN_HERE]
+version: 2
+tunnels:
+  app:
+    addr: 3000
+    proto: http
+    bind_tls: true
+    subdomain: appstarter
+    host-header: localhost:3000
+  webhooks:
+    addr: 8787
+    proto: http
+    bind_tls: true
+    subdomain: appstarter
+    host-header: localhost:8787
+  extensions:
+    addr: 39351
+    proto: http
+    bind_tls: true
+    subdomain: extensions.appstarter
+    host-header: localhost:39351

@@ -1,0 +1,27 @@
+{
+  "name": "nextjs-shopify-app-starter",
+  "version": "1.0.0",
+  "description": "A simple Shopify app starter built using Nextjs",
+  "scripts": {
+    "shopify": "shopify",
+    "build": "shopify app build",
+    "dev": "shopify app dev --tunnel-url=https://extensions.appstarter.ngrok.io:39351",
+    "info": "shopify app info",
+    "scaffold": "shopify app scaffold",
+    "deploy": "shopify app deploy",
+    "ngrok": "ngrok start --config=ngrok.yml app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Checkout-Blocks/Nextjs-Shopify-App-Starter.git"
+  },
+  "author": "Gil Greenberg",
+  "license": "MIT",
+  "dependencies": {
+    "@shopify/app": "^3.24.1",
+    "@shopify/cli": "^3.24.1"
+  },
+  "devDependencies": {
+    "ngrok": "^4.3.3"
+  }
+}

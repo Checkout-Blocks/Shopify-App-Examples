@@ -1,0 +1,2 @@
+name = "App starter"
+scopes = "read_orders,read_checkouts,read_locales"

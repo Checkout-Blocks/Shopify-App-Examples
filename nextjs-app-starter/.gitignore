@@ -1,0 +1,26 @@
+# Nextjs build library
+.next
+
+# Environment Configuration
+.env
+.env.prod
+.env.dev
+
+# Webpack build output (Extensions)
+dist
+
+# Dependency directory
+node_modules
+
+# Ignore Apple macOS Desktop Services Store
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Ignore ngrok.yml to avoid exposing tokens
+ngrok.yml
+
+# ngrok tunnel file
+config/tunnel.pid
